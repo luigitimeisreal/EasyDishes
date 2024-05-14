@@ -1,13 +1,13 @@
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand fuente-caligrafia" href="#">
+    <a class="navbar-brand fuente-caligrafia" href="#" routerLink="/">
       <!-- <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> -->
       EasyDishes
     </a>
     <form class="d-flex gap-3" role="search">
-      <a class="nav-link active ms-5" aria-current="page" href="#">Recetas</a>
-      <a class="nav-link active" aria-current="page" href="#">Favoritos</a>
-      <a class="nav-link active" aria-current="page" href="#">Lista de la compra</a>
+      <a routerLink="/recetas" class="nav-link active ms-5" aria-current="page" href="#">Recetas</a>
+      <a routerLink="/favoritos" class="nav-link active" aria-current="page" href="#">Favoritos</a>
+      <a routerLink="/lista" class="nav-link active" aria-current="page" href="#">Lista de la compra</a>
     </form>
   </div>
 </nav>
@@ -16,7 +16,7 @@
 <!-- <app-contacto></app-contacto> -->
 <!-- <app-lista></app-lista> -->
 <!-- <app-anyadir></app-anyadir> -->
-<app-inicio></app-inicio>
+<!-- <app-inicio></app-inicio> -->
 
 <router-outlet></router-outlet>
 

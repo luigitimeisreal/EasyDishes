@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: caligrafia;
+    src: url(assets/fonts/ltdiploma.otf);
+}
+
+.fuente-caligrafia {
+    font-family: caligrafia;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}

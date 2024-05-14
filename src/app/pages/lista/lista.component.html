@@ -1,0 +1,58 @@
+<div class="container">
+    <h1 class="fuente-caligrafia">Lista de la compra</h1>
+    <div class="card mb-3 border-0">
+        <img src="../../../assets/images/banner-lista.png" class="card-img-top" alt="Banner de la lista">
+    </div>
+    @if(this.ingredientesCantidades.length === 0) {
+      <p class="text-warning"><i>No hay ningún ingrediente en la lista</i></p>
+    }
+    <ul class="list-group">
+        @for (ingrediente of ingredientesCantidades; track $index) {
+          <li class="list-group-item ingrediente">{{ ingrediente }}</li>
+        }
+    </ul>
+    <br>
+    <button type="button" class="btn btn-secondary btn-separacion" (click)="eliminarTodosIngredientes()">Eliminar todo</button>
+    <button type="button" class="btn btn-secondary btn-separacion" data-bs-toggle="modal" data-bs-target="#anyadirModal">
+      Añadir
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="generarPDF()">Generar PDF</button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="anyadirModal" tabindex="-1" aria-labelledby="anyadirModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <form action="" [formGroup]="formAnyadir" (ngSubmit)="anyadirIngrediente()">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="anyadirModalLabel">Añadir ingrediente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="row mb-3">
+                      <div class="col">
+                          <label class="form-label">Ingrediente</label>
+                          <input type="text" class="form-control" placeholder="Ingrediente" formControlName="ingrediente">
+                          @if(formAnyadir.get('ingrediente')?.hasError("required") && formAnyadir.get('ingrediente')?.touched) {
+                            <p class="text-danger">Debes introducir un nombre del ingrediente</p>
+                          }
+                      </div>
+                      <div class="col">
+                          <label class="form-label">Cantidad</label>
+                          <input type="number" class="form-control" placeholder="Cantidad" formControlName="cantidad">
+                          @if(formAnyadir.get('cantidad')?.hasError("required") && formAnyadir.get('cantidad')?.touched) {
+                            <p class="text-danger">Debes introducir una cantidad</p>
+                          }
+                      </div>
+                      <p>Para guardar los ingredientes, inicia sesión </p>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Añadir</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+</div>

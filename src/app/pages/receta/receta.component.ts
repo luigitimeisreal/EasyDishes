@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Receta } from '../../interfaces/receta';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-receta',
@@ -9,11 +10,17 @@ import { Receta } from '../../interfaces/receta';
   styleUrl: './receta.component.css'
 })
 export class RecetaComponent implements OnInit {
+
+  constructor(private ruta: ActivatedRoute) {}
+
   @Input()
   receta!: Receta;
 
+  id: string = "";
+
   ngOnInit(): void {
-      console.log(this.receta);
+    console.log(this.receta);
+    console.log("ID RECETA: ", this.ruta.snapshot.paramMap.get('id'));
   }
 
   anyadirIngredientesALista() {

@@ -31,6 +31,10 @@ export class ListaComponent {
     }
   }
 
+  eliminarIngrediente(ingrediente: string) {
+    console.log(ingrediente);
+  }
+
   eliminarTodosIngredientes() {
     this.ingredientesCantidades = [];
     // Eliminar tabla con ingredientes

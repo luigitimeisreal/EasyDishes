@@ -34,5 +34,4 @@ export class ContactoComponent {
       console.log("Error, no se ha enviado el mensaje");
     }
   }
-
 }

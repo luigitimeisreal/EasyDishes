@@ -3,13 +3,13 @@
     <div class="card mb-3 border-0">
         <img src="../../../assets/images/banner-lista.png" class="card-img-top" alt="Banner de la lista">
     </div>
-    @if(this.ingredientesCantidades.length === 0) {
+    @if(this.ingredientes.length === 0) {
       <p class="text-warning"><i>No hay ningún ingrediente en la lista</i></p>
     }
     <ul class="ingrediente">
-        @for (ingrediente of ingredientesCantidades; track $index) {
+        @for (ingrediente of ingredientes; track $index) {
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{ ingrediente }}
+            {{ ingrediente.nombre }} x{{ ingrediente.cantidad }} {{ ingrediente.unidad }}
             <div>
               <button type="button" class="btn btn-danger btn-separacion" (click)="eliminarIngrediente(ingrediente)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -21,6 +21,7 @@
           <br>
         }
     </ul>
+    <p>Se puede añadir cantidad a un ingrediente introduciendo de nuevo su nombre</p>
     <br>
     <button type="button" class="btn btn-secondary btn-separacion" (click)="eliminarTodosIngredientes()">Eliminar todo</button>
     <button type="button" class="btn btn-secondary btn-separacion" data-bs-toggle="modal" data-bs-target="#anyadirModal">
@@ -51,6 +52,13 @@
                           <input type="number" class="form-control" placeholder="Cantidad" formControlName="cantidad">
                           @if(formAnyadir.get('cantidad')?.hasError("required") && formAnyadir.get('cantidad')?.touched) {
                             <p class="text-danger">Debes introducir una cantidad</p>
+                          }
+                      </div>
+                      <div class="col">
+                          <label class="form-label">Unidad</label>
+                          <input type="text" class="form-control" placeholder="Unidad" formControlName="unidad">
+                          @if(formAnyadir.get('unidad')?.hasError("required") && formAnyadir.get('unidad')?.touched) {
+                            <p class="text-danger">Debes introducir una unidad</p>
                           }
                       </div>
                       <p>Para guardar los ingredientes, inicia sesión </p>

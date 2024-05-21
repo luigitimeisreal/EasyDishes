@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { Ingrediente } from '../../interfaces/ingrediente';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -13,45 +14,64 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrl: './lista.component.css'
 })
 export class ListaComponent {
-  ingredientesCantidades: string[] = [];
+  ingredientes: Ingrediente[] = [];
 
   formAnyadir = new FormGroup({
     ingrediente: new FormControl("", Validators.required),
-    cantidad: new FormControl("", Validators.required)
+    cantidad: new FormControl("", Validators.required),
+    unidad: new FormControl("", Validators.required),
   })
 
   anyadirIngrediente() {
     if(this.formAnyadir.valid) {
       console.log(this.formAnyadir.value);
-      // Añadir
-      let elementoLista = `${this.formAnyadir.value.ingrediente}: x${this.formAnyadir.value.cantidad}`
-      this.ingredientesCantidades.push(elementoLista);
+      let existe = false;
+      let posicion = 0;
+      this.ingredientes.forEach((ingrediente, i) => {
+        if(ingrediente.nombre === this.formAnyadir.value.ingrediente) {
+          existe = true;
+          posicion = i;
+        }
+      });
+      if(existe) {
+        this.ingredientes[posicion].cantidad += parseFloat(this.formAnyadir.value.cantidad!);
+      } else {
+        const nuevoIngrediente: Ingrediente = {
+          nombre: this.formAnyadir.value.ingrediente!,
+          cantidad: parseFloat(this.formAnyadir.value.cantidad!),
+          unidad: this.formAnyadir.value.unidad!
+        }
+        this.ingredientes.push(nuevoIngrediente);
+      }
     } else {
       console.log("Error en el formulario");
     }
   }
 
-  eliminarIngrediente(ingrediente: string) {
-    console.log(ingrediente);
+  eliminarIngrediente(ingrediente: Ingrediente) {
+    this.ingredientes = this.ingredientes.filter(ingredientePotencial => {
+      return ingredientePotencial.nombre !== ingrediente.nombre
+    })
   }
 
   eliminarTodosIngredientes() {
-    this.ingredientesCantidades = [];
+    this.ingredientes = [];
     // Eliminar tabla con ingredientes
   }
 
   generarPDF() {
-    const contenidoLista = [...this.ingredientesCantidades];
-    if(contenidoLista.length === 0) {
-      contenidoLista.push("Lista vacía. Añade ingredientes");
-    }
-    contenidoLista.push("Creado con EasyDishes");
+    const ticket = []
+    if(this.ingredientes.length === 0) ticket.push("Lista vacía. Añade ingredientes")
+    this.ingredientes.forEach((ingrediente) => {
+      ticket.push(`${ingrediente.nombre} x${ingrediente.cantidad} ${ingrediente.unidad}`)
+    })
+    ticket.push("Creado con EasyDishes");
     let definicionLista = {
-      content: contenidoLista
+      content: ticket
     }
+
 
     pdfMake.createPdf(definicionLista).open();
-
   }
 
 }

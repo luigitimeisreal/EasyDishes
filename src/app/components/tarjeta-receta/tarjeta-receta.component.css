@@ -2,3 +2,7 @@
     width: 80%;
     margin-right: 5%;
 }
+
+.card {
+    box-shadow: 5px 5px #888888;
+}

@@ -1,7 +1,12 @@
+import { Ingrediente } from "./ingrediente";
+
 export interface Receta {
     nombre: string,
     imagen: string,
-    ingredientes: string[],
+    ingredientes: Ingrediente[],
     preparacion: string,
-    id?: string
+    id?: string,
+    fecha: string,
+    etapa: string,
+    autor: string
 }

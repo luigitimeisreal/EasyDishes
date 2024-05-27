@@ -22,6 +22,9 @@ export class RecetaComponent implements OnInit {
   receta!: Receta;
 
   id: string = "";
+  urlFacebook = `https://www.facebook.com/sharer.php?u=${window.location.href}`
+  urlX = `https://twitter.com/intent/tweet?url=${window.location.href}&text=Mira+esta+receta`
+  urlLinkedin = `https://www.linkedin.com/shareArticle?url=${window.location.href}&title=Receta&summary=Mira+esta+receta`
 
   ngOnInit(): void {
     console.log(this.receta);
@@ -38,10 +41,11 @@ export class RecetaComponent implements OnInit {
     this.httpClient
       .get(`http://localhost/api/receta.php?id=${idReceta}`)
       .subscribe((data: any) => {
-        // console.log("DAtos receta", data);
+        console.log("DAtos receta", data);
         if(!data) {
           this.router.navigate(['/noexiste']);
         }
+        console.log("Entra");
         this.receta = data;
       })
   }

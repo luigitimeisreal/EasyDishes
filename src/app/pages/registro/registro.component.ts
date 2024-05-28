@@ -37,7 +37,8 @@ export class RegistroComponent {
       if(this.coincideContrasenya) {
         // Enviar datos de registro al servidor
         console.log("Enviando datos", this.registro.value);
-        this.registro.reset();        
+        console.log(JSON.stringify(this.registro.value));
+        this.registro.reset();
       }
     } else {
       console.log("Errores en el registro");

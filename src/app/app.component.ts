@@ -6,6 +6,7 @@ import { Receta } from './interfaces/receta';
 // import { ListaComponent } from './pages/lista/lista.component';
 // import { AnyadirComponent } from './pages/anyadir/anyadir.component';
 // import { InicioComponent } from './pages/inicio/inicio.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

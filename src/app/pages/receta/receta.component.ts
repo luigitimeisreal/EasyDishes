@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Receta } from '../../interfaces/receta';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RequestService } from '../../services/request.service';
 
 @Component({
   selector: 'app-receta',
@@ -15,7 +16,8 @@ export class RecetaComponent implements OnInit {
   constructor(
     private ruta: ActivatedRoute,
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private requestService: RequestService
   ) {}
 
   @Input()
@@ -38,17 +40,13 @@ export class RecetaComponent implements OnInit {
   }
 
   obtenerReceta(idReceta: string | null) {
-    this.httpClient
-      .get(`http://localhost/api/receta.php?id=${idReceta}`)
-      .subscribe((data: any) => {
-        console.log("DAtos receta", data);
+    this.requestService.conseguirReceta(idReceta)
+      .subscribe((data:any) => {
         if(!data) {
           this.router.navigate(['/noexiste']);
         }
-        console.log("Entra");
         this.receta = data;
       })
   }
-
 
 }

@@ -6,6 +6,8 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
 import { NotFoundComponent } from './pages/404/404.component';
 import { AnyadirComponent } from './pages/anyadir/anyadir.component';
 import { RecetaComponent } from './pages/receta/receta.component';
+import { RegistroComponent } from './pages/registro/registro.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
     {"path": "", component: InicioComponent},
@@ -16,6 +18,8 @@ export const routes: Routes = [
         {"path": "receta/:id", component: RecetaComponent}
     ]},
     {"path": "contacto", component: ContactoComponent},
+    {"path": "registro", component: RegistroComponent},
+    {"path": "login", component: LoginComponent},
     {"path": "favoritos", redirectTo: "recetas"},
     {"path": "**", component: NotFoundComponent},
 ];

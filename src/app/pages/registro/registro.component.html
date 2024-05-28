@@ -1,0 +1,93 @@
+<div class="container">
+    <h1 class="fuente-caligrafia">Registro</h1>
+    <form [formGroup]="registro" (ngSubmit)="registrarUsuario()">
+        <div class="mb-3">
+            <label class="form-label">DNI</label>
+            <input type="text" class="form-control" formControlName="dni" placeholder="12345678A">
+        </div>
+        @for (err of errores; track $index) {
+            @if(registro.get('dni')?.hasError(err.type) && registro.get('dni')?.touched) {
+                <p class="text-danger">{{err.message}}</p>
+            }
+        }
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre">
+        </div>
+        @for (err of errores; track $index) {
+            @if(registro.get('nombre')?.hasError(err.type) && registro.get('nombre')?.touched) {
+                <p class="text-danger">{{err.message}}</p>
+            }
+        }
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label">Primer Apellido</label>
+                <input type="text" class="form-control" placeholder="Tú apellido" formControlName="apellido1">
+                @for (err of errores; track $index) {
+                    @if(registro.get('apellido1')?.hasError(err.type) && registro.get('apellido1')?.touched) {
+                        <p class="text-danger">{{err.message}}</p>
+                    }
+                }
+            </div>
+            <div class="col">
+                <label class="form-label">Segundo Apellido</label>
+                <input type="text" class="form-control" placeholder="Tú apellido" formControlName="apellido2">
+                @for (err of errores; track $index) {
+                    @if(registro.get('apellido2')?.hasError(err.type) && registro.get('apellido2')?.touched) {
+                        <p class="text-danger">{{err.message}}</p>
+                    }
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="text" class="form-control" placeholder="+34618123456" formControlName="telefono">
+            @for (err of errores; track $index) {
+                @if(registro.get('telefono')?.hasError(err.type) && registro.get('telefono')?.touched) {
+                    <p class="text-danger">{{err.message}}</p>
+                }
+            }
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="tucorreo@plataforma.com">
+        </div>
+        @for (err of errores; track $index) {
+            @if(registro.get('email')?.hasError(err.type) && registro.get('email')?.touched) {
+                <p class="text-danger">{{err.message}}</p>
+            }
+        }
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label">Contraseña</label>
+                <input type="password" class="form-control" placeholder="Contraseña" formControlName="contrasenya1">
+                @for (err of errores; track $index) {
+                    @if(registro.get('contrasenya1')?.hasError(err.type) && registro.get('contrasenya1')?.touched) {
+                        <p class="text-danger">{{err.message}}</p>
+                        <p>Las contrasñas deben cumplir lo siguiente: </p>
+                        <p>- Longitud mínima de 8 carácteres</p>
+                        <p>- Por lo menos una mayúscula</p>
+                        <p>- Por lo menos una minúscula</p>
+                        <p>- Por lo menos 1 número</p>
+                        <p>- Por lo menos 1 cáracter especial</p>
+                    }
+                }
+            </div>
+            <div class="col">
+                <label class="form-label">Repetir contraseña</label>
+                <input type="password" class="form-control" placeholder="Repetir contraseña" formControlName="contrasenya2">
+                @for (err of errores; track $index) {
+                    @if(registro.get('contrasenya2')?.hasError(err.type) && registro.get('contrasenya2')?.touched) {
+                        <p class="text-danger">{{err.message}}</p>
+                    }
+                }
+            </div>
+        </div>
+        @if(!this.coincideContrasenya) {
+            <p class="text-danger">Las contraseñas no coinciden</p>
+        }
+        <div class="d-grid gap-2">
+            <input class="btn btn-secondary" type="submit">
+        </div>
+    </form>
+</div>

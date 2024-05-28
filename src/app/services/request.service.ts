@@ -7,15 +7,21 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class RequestService {
 
+  url: string = "http://localhost/api"
+
   constructor(private httpClient: HttpClient) { }
 
   conseguirReceta(idReceta: string | null): any {
-    return this.httpClient.get(`http://localhost/api/receta.php?id=${idReceta}`);
+    return this.httpClient.get(`${this.url}/receta.php?id=${idReceta}`);
   }
 
-  registrarUsuario(datos: string) {
-    const params = new HttpParams().set("datos", datos);
-    return this.httpClient.post(`http://localhost/api/registro.php`, null, {params});
+  registrarUsuario(datos: Object) {
+    // const params = new HttpParams().set("datos", datos.toString());
+    return this.httpClient.post(`${this.url}/registro.php`, datos);
+  }
+
+  comprobarUsuario(dni: string, contrasenya: string) {
+    return this.httpClient.get(`${this.url}/inicioSesion.php?dni=${dni}&cont=${contrasenya}`);
   }
 
 }

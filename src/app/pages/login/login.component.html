@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="container">
+    <h1 class="fuente-caligrafia">Iniciar Sesión</h1>
+    <form [formGroup]="entrada" (ngSubmit)="verificarUsuario()">
+        <div class="mb-3">
+            <label class="form-label">DNI</label>
+            <input type="text" class="form-control" placeholder="" formControlName="dni">
+            @if(entrada.get('dni')?.hasError("required") && entrada.get('dni')?.touched) {
+                <p class="text-danger">Introduce un DNI</p>
+            }
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <input type="password" class="form-control" placeholder="" formControlName="contrasenya">
+            @if(entrada.get('contrasenya')?.hasError("required") && entrada.get('contrasenya')?.touched) {
+                <p class="text-danger">Introduce una contraseña</p>
+            }
+        </div>
+        <div class="d-grid gap-2">
+            <input class="btn btn-secondary" type="submit" value="Entrar">
+        </div>
+        <p>Si no tienes cuenta, puedes crearla <a routerLink="/registro">aquí</a></p>
+    </form>
+</div>

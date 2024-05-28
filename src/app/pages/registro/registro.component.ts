@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { RequestService } from '../../services/request.service';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink, RouterOutlet],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -12,6 +14,8 @@ export class RegistroComponent {
   validacionContrasenya: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
   coincideContrasenya = true;
   
+  constructor(private requestService: RequestService) {}
+
   errores = [
     {type: "required", message: "El campo no puede estar vacío"},
     {type: "pattern", message: "La entrada no es válida"},
@@ -38,11 +42,14 @@ export class RegistroComponent {
         // Enviar datos de registro al servidor
         console.log("Enviando datos", this.registro.value);
         console.log(JSON.stringify(this.registro.value));
+        this.requestService.registrarUsuario(this.registro.value)
+          .subscribe((data) => {
+            console.log(data);
+          })
         this.registro.reset();
       }
     } else {
       console.log("Errores en el registro");
-      
     }
   }
 

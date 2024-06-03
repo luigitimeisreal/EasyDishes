@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { Ingrediente } from '../../interfaces/ingrediente';
 
 
 @Component({
@@ -15,24 +16,35 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
   styleUrl: './anyadir.component.css'
 })
 export class AnyadirComponent {
-  ingredientesCantidadesProvisionales: string[] = [];
+  ingredientesProvisionales: Ingrediente[] = [];
 
   ingredientes = new FormGroup({
     ingrediente: new FormControl("", Validators.required),
-    cantidad: new FormControl("", Validators.required)
+    cantidad: new FormControl("", Validators.required),
+    unidad: new FormControl("", Validators.required)
   })
-
-  imagenSeleccionada(evento: any) {
-
-  }
-
-  imagenEliminada(evento: any) {
-    
-  }
 
   anyadirIngrediente() {
     if(this.ingredientes.valid) {
-      this.ingredientesCantidadesProvisionales.push(`${this.ingredientes.value.ingrediente}: x${this.ingredientes.value.cantidad}`)
+      const ingrediente: Ingrediente = {
+        nombre: this.ingredientes.value.ingrediente!,
+        cantidad: parseFloat(this.ingredientes.value.cantidad!),
+        unidad: this.ingredientes.value.unidad!
+      }
+      // this.ingredientesProvisionales.push(ingrediente);
+      let existe = false;
+      let posicion = 0;
+      this.ingredientesProvisionales.forEach((ingredienteProvisional, i) => {
+        if(ingredienteProvisional.nombre === ingrediente.nombre) {
+          existe = true;
+          posicion = i;
+        }
+      });
+      if(existe) {
+        this.ingredientesProvisionales[posicion].cantidad += ingrediente.cantidad;
+      } else {
+        this.ingredientesProvisionales.push(ingrediente);
+      }
     }
   }
 

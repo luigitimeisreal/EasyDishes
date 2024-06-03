@@ -3,6 +3,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent {
 
   constructor(
     private requestService: RequestService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private authService: AuthService
   ) {}
 
   entrada = new FormGroup({
@@ -32,6 +34,7 @@ export class LoginComponent {
             // alert("Sesión iniciada");
             this.localStorageService.anyadirItem("dni", this.entrada.value.dni!);
             this.localStorageService.anyadirItem("sesionIniciada", "true");
+            this.authService.estaAutenticado = true;
           } else {
             // alert("Sesión no iniciada");
           }

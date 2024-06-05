@@ -72,46 +72,31 @@ export class AnyadirComponent {
   }
 
   cuandoImagenSeleccionada(event: any) {
-    this.imagen = event.target?.files[0];
+    this.imagen = event.target?.files[0] as File;
   }
 
   subirReceta() {
+    const datosFinales: any = this.anyadirRecetaForm.value;
     if(this.anyadirRecetaForm.valid && this.hayIngredientes && this.imagen) {
-      console.log("Entra");
-      // Transformar datos a blob
       const lector = new FileReader();
-      lector.readAsArrayBuffer(this.imagen);
       lector.onload = () => {
-        const blobObjeto = new Blob([lector.result as BlobPart], {type: this.imagen?.type})
-        const lectorBlob = new FileReader();
-        lectorBlob.readAsText(blobObjeto);
-        lectorBlob.onload = () => {
-          const blobFinal = lectorBlob.result;
-          console.log("Enviando datos: ", this.anyadirRecetaForm.value, this.ingredientesProvisionales);
-          console.log(blobFinal);
-          // Crear URL con imagen
-          this.rutaImagen = URL.createObjectURL(blobObjeto);
-          console.log(this.rutaImagen);
-          // Mandar datos
-          const datosFinales: any = this.anyadirRecetaForm.value;
-          datosFinales.imagen = JSON.stringify(blobObjeto);
-          datosFinales.ingredientes = this.ingredientesProvisionales;
-          // Añadir autor datos
-          datosFinales.autor = this.localStorageService.obtenerItem("dni")
-          // Añadir fecha
-          const fechaActual = new Date();
-          const mesActual = fechaActual.getUTCMonth() + 1;
-          const diaActual = fechaActual.getUTCDate();
-          const anyoActual = fechaActual.getUTCFullYear();
-          datosFinales.fecha = `${anyoActual}/${mesActual}/${diaActual}`
-          console.log(datosFinales);
-          this.requestService.subirReceta(datosFinales)
-            .subscribe((data) => {
-              console.log("Final", data);
-            })
-        }
-        
-      }
+        datosFinales.imagen = lector.result as string;
+        datosFinales.ingredientes = this.ingredientesProvisionales;
+        // Añadir autor datos
+        datosFinales.autor = this.localStorageService.obtenerItem("dni")
+        // Añadir fecha
+        const fechaActual = new Date();
+        const mesActual = fechaActual.getUTCMonth() + 1;
+        const diaActual = fechaActual.getUTCDate();
+        const anyoActual = fechaActual.getUTCFullYear();
+        datosFinales.fecha = `${anyoActual}/${mesActual}/${diaActual}`
+        console.log("Enviando", datosFinales);
+        this.requestService.subirReceta(datosFinales)
+          .subscribe((data) => {
+            console.log("Final", data);
+          })
+      };
+      lector.readAsDataURL(this.imagen);
     }
   }
 

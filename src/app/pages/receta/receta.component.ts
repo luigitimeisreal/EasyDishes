@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Sanitizer } from '@angular/core';
 import { Receta } from '../../interfaces/receta';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RequestService } from '../../services/request.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-receta',
@@ -17,7 +18,7 @@ export class RecetaComponent implements OnInit {
     private ruta: ActivatedRoute,
     private httpClient: HttpClient,
     private router: Router,
-    private requestService: RequestService
+    private requestService: RequestService,
   ) {}
 
   @Input()
@@ -48,8 +49,7 @@ export class RecetaComponent implements OnInit {
         }
         this.receta = data;
         console.log("IMG", this.receta.imagen);
-        const blobObjeto = JSON.parse(this.receta.imagen);
-        this.rutaImagen = URL.createObjectURL(blobObjeto);
+        this.rutaImagen = this.receta.imagen;
       })
   }
 

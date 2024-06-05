@@ -13,6 +13,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  iniciadoSesion = false;
+  falladoSesion = false;
 
   constructor(
     private requestService: RequestService,
@@ -30,13 +32,17 @@ export class LoginComponent {
       console.log("Comprobando los datos del usuario");
       this.requestService.comprobarUsuario(this.entrada.value.dni!, this.entrada.value.contrasenya!)
         .subscribe((data) => {
+          this.falladoSesion = false;
+          this.iniciadoSesion = false;
           if(data) {
             // alert("Sesión iniciada");
             this.localStorageService.anyadirItem("dni", this.entrada.value.dni!);
             this.localStorageService.anyadirItem("sesionIniciada", "true");
             this.authService.estaAutenticado = true;
+            this.iniciadoSesion = true;
           } else {
             // alert("Sesión no iniciada");
+            this.falladoSesion = true;
           }
         })
     }

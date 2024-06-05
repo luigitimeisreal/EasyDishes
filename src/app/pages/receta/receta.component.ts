@@ -27,6 +27,7 @@ export class RecetaComponent implements OnInit {
   urlFacebook = `https://www.facebook.com/sharer.php?u=${window.location.href}`
   urlX = `https://twitter.com/intent/tweet?url=${window.location.href}&text=Mira+esta+receta`
   urlLinkedin = `https://www.linkedin.com/shareArticle?url=${window.location.href}&title=Receta&summary=Mira+esta+receta`
+  rutaImagen = "";
 
   ngOnInit(): void {
     console.log(this.receta);
@@ -46,6 +47,9 @@ export class RecetaComponent implements OnInit {
           this.router.navigate(['/noexiste']);
         }
         this.receta = data;
+        console.log("IMG", this.receta.imagen);
+        const blobObjeto = JSON.parse(this.receta.imagen);
+        this.rutaImagen = URL.createObjectURL(blobObjeto);
       })
   }
 

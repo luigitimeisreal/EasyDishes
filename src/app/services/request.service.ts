@@ -24,4 +24,8 @@ export class RequestService {
     return this.httpClient.get(`${this.url}/inicioSesion.php?dni=${dni}&cont=${contrasenya}`);
   }
 
+  subirReceta(datos: Object) {
+    return this.httpClient.post(`${this.url}/anyadirReceta.php`, datos)
+  }
+
 }

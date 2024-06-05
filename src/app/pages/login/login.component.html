@@ -21,4 +21,15 @@
         <p>Si no tienes cuenta, puedes crearla <a routerLink="/registro">aquí</a></p>
         <p>Iniciar sesión te permite subir recetas, guardar favoritos o crear listas de la compra.</p>
     </form>
+    @if (this.iniciadoSesion) {
+        <div class="alert alert-success" role="alert">
+            Has iniciado sesión correctamente
+        </div>
+    }
+    @if (this.falladoSesion) {
+        <div class="alert alert-danger" role="alert">
+            Hay un error, comprueba los datos
+        </div>
+    }
+    
 </div>

@@ -68,5 +68,15 @@
         <div class="d-grid gap-2">
             <input type="submit" class="btn btn-secondary btn-lg" value="Aceptar">
         </div>
+        @if(this.recetaAnyadida) {
+            <div class="alert alert-success" role="alert">
+                Receta subida correctamente
+            </div>
+        }
+        @if(this.recetaNoAnyadida) {
+            <div class="alert alert-danger" role="alert">
+                Ha habido un error al subir la receta
+            </div>
+        }
     </form>
 </div>

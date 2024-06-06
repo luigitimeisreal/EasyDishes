@@ -22,6 +22,8 @@ export class AnyadirComponent {
   hayIngredientes: boolean = false;
   imagen?: File;
   rutaImagen: any = "";
+  recetaAnyadida = false;
+  recetaNoAnyadida = false;
 
   constructor(
     private requestService: RequestService,
@@ -77,6 +79,7 @@ export class AnyadirComponent {
 
   subirReceta() {
     const datosFinales: any = this.anyadirRecetaForm.value;
+    this.recetaNoAnyadida = true;
     if(this.anyadirRecetaForm.valid && this.hayIngredientes && this.imagen) {
       const lector = new FileReader();
       lector.onload = () => {
@@ -91,6 +94,8 @@ export class AnyadirComponent {
         const anyoActual = fechaActual.getUTCFullYear();
         datosFinales.fecha = `${anyoActual}/${mesActual}/${diaActual}`
         console.log("Enviando", datosFinales);
+        this.recetaNoAnyadida = false;
+        this.recetaAnyadida = true;
         this.requestService.subirReceta(datosFinales)
           .subscribe((data) => {
             console.log("Final", data);

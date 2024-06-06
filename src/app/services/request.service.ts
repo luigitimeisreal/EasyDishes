@@ -28,4 +28,12 @@ export class RequestService {
     return this.httpClient.post(`${this.url}/anyadirReceta.php`, datos)
   }
 
+  obtenerUsuarios() {
+    return this.httpClient.get(`${this.url}/obtener3Usuarios.php`)
+  }
+
+  obtenerRecetasEtapa(etapa: string) {
+    return this.httpClient.get(`${this.url}/recetasEtapa.php?etapa=${etapa}`);
+  }
+
 }

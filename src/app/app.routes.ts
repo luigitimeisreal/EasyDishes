@@ -8,6 +8,8 @@ import { AnyadirComponent } from './pages/anyadir/anyadir.component';
 import { RecetaComponent } from './pages/receta/receta.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RecetasEtapaComponent } from './pages/recetas-etapa/recetas-etapa.component';
+import { RecetasAutorComponent } from './pages/recetas-autor/recetas-autor.component';
 
 export const routes: Routes = [
     {"path": "", component: InicioComponent},
@@ -15,7 +17,9 @@ export const routes: Routes = [
     {"path": "recetas", component: FavRecetasComponent},
     {"path": "recetas", children: [
         {"path": "anyadir", component: AnyadirComponent},
-        {"path": "receta/:id", component: RecetaComponent}
+        {"path": "receta/:id", component: RecetaComponent},
+        {"path": "etapa/:etapa", component: RecetasEtapaComponent},
+        {"path": "autor/:autor", component: RecetasAutorComponent},
     ]},
     {"path": "contacto", component: ContactoComponent},
     {"path": "registro", component: RegistroComponent},

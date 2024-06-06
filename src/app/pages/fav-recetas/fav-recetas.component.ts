@@ -15,7 +15,7 @@ export class FavRecetasComponent implements OnInit {
 
   constructor(private requestService: RequestService,) {}
 
-  autores: string[] = [];
+  autores: any = [];
 
   ngOnInit(): void {
     this.requestService.obtenerUsuarios()

@@ -10,8 +10,8 @@
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP69VhNwEwfPkMoskVDDjMblTUciNTLiQTRQ&s"
                     class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">{{autor}}</h5>
-                    <a class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/autor/', autor]">Ver</a>
+                    <h5 class="card-title">{{autor.nombre}}: {{ autor.dni }}</h5>
+                    <a class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/autor/', autor.dni]">Ver</a>
                 </div>
             </div>
         </div>

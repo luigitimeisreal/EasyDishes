@@ -36,4 +36,8 @@ export class RequestService {
     return this.httpClient.get(`${this.url}/recetasEtapa.php?etapa=${etapa}`);
   }
 
+  obtenerRecetasAutor(autor: string) {
+    return this.httpClient.get(`${this.url}/recetasAutor.php?autor=${autor}`);
+  }
+
 }

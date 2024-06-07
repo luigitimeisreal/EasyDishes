@@ -13,6 +13,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class RegistroComponent {
   validacionContrasenya: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
   coincideContrasenya = true;
+  registroCorrecto = false;
   
   constructor(private requestService: RequestService) {}
 
@@ -39,6 +40,7 @@ export class RegistroComponent {
       // console.log(this.registro.value);
       this.coincideContrasenya = this.registro.value.contrasenya1 === this.registro.value.contrasenya2;
       if(this.coincideContrasenya) {
+        this.registroCorrecto = true;
         // Enviar datos de registro al servidor
         console.log("Enviando datos", this.registro.value);
         console.log(JSON.stringify(this.registro.value));

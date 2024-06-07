@@ -90,5 +90,10 @@
             <input class="btn btn-secondary" type="submit">
         </div>
         <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+        @if (this.registroCorrecto) {
+            <div class="alert alert-success" role="alert">
+                Usuario creado
+            </div>
+        }
     </form>
 </div>

@@ -11,6 +11,14 @@
     </form>
   </div>
 </nav>
+<div class="inicio">
+  @if (sesionIniciada) {
+    <p>Has iniciado sesión como {{ dniUsuario }} <a href="" (click)="cerrarSesion()">Cerrar Sesión</a></p>
+  }
+  @else {
+    <a href="" routerLink="/login">Iniciar sesión</a>
+  }
+</div>
 
 
 <!-- <app-receta [receta]="recetaPrueba"></app-receta> -->

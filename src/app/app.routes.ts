@@ -10,18 +10,19 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RecetasEtapaComponent } from './pages/recetas-etapa/recetas-etapa.component';
 import { RecetasAutorComponent } from './pages/recetas-autor/recetas-autor.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {"path": "", component: InicioComponent},
-    {"path": "lista", component: ListaComponent},
+    {"path": "lista", component: ListaComponent, canActivate:[authGuard]},
     {"path": "recetas", component: FavRecetasComponent},
     {"path": "recetas", children: [
-        {"path": "anyadir", component: AnyadirComponent},
+        {"path": "anyadir", component: AnyadirComponent, canActivate:[authGuard]},
         {"path": "receta/:id", component: RecetaComponent},
         {"path": "etapa/:etapa", component: RecetasEtapaComponent},
         {"path": "autor/:autor", component: RecetasAutorComponent},
     ]},
-    {"path": "contacto", component: ContactoComponent},
+    {"path": "contacto", component: ContactoComponent, canActivate:[authGuard]},
     {"path": "registro", component: RegistroComponent},
     {"path": "login", component: LoginComponent},
     {"path": "favoritos", redirectTo: "recetas"},

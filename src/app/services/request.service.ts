@@ -40,4 +40,20 @@ export class RequestService {
     return this.httpClient.get(`${this.url}/recetasAutor.php?autor=${autor}`);
   }
 
+  obtenerRecetasContacto() {
+    return this.httpClient.get(`${this.url}/recetasnombreID.php`);
+  }
+
+  subirMensaje(datos: Object) {
+    return this.httpClient.post(`${this.url}/subirMensaje.php`, datos)
+  }
+
+  anyadirFavorito(datos: Object) {
+    return this.httpClient.post(`${this.url}/subirFavorito.php`, datos)
+  }
+
+  obtenerFavoritos(dni: string) {
+    return this.httpClient.get(`${this.url}/obtenerFavoritos.php?usuario=${dni}`);
+  }
+
 }

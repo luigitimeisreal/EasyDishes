@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RequestService } from '../../services/request.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-receta',
@@ -19,6 +20,7 @@ export class RecetaComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private requestService: RequestService,
+    private localStorageService: LocalStorageService
   ) {}
 
   @Input()
@@ -51,6 +53,19 @@ export class RecetaComponent implements OnInit {
         console.log("IMG", this.receta.imagen);
         this.rutaImagen = this.receta.imagen;
       })
+  }
+
+  anyadirFavorito() {
+    const conjuntoUsuarioReceta = {
+      usuario: this.localStorageService.obtenerItem("dni"),
+      receta: this.ruta.snapshot.paramMap.get('id')
+    };
+    this.requestService.anyadirFavorito(conjuntoUsuarioReceta)
+      .subscribe((data) => {
+        console.log("Recibiendo", data);
+        alert("Receta añadida a favoritos")
+      })
+
   }
 
 }

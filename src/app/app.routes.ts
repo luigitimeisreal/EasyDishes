@@ -11,6 +11,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RecetasEtapaComponent } from './pages/recetas-etapa/recetas-etapa.component';
 import { RecetasAutorComponent } from './pages/recetas-autor/recetas-autor.component';
 import { authGuard } from './guards/auth.guard';
+import { FavoritosComponent } from './pages/favoritos/favoritos.component';
 
 export const routes: Routes = [
     {"path": "", component: InicioComponent},
@@ -25,6 +26,6 @@ export const routes: Routes = [
     {"path": "contacto", component: ContactoComponent, canActivate:[authGuard]},
     {"path": "registro", component: RegistroComponent},
     {"path": "login", component: LoginComponent},
-    {"path": "favoritos", redirectTo: "recetas"},
+    {"path": "favoritos", component: FavoritosComponent, canActivate:[authGuard]},
     {"path": "**", component: NotFoundComponent},
 ];

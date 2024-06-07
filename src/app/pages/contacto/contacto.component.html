@@ -1,48 +1,7 @@
 <div class="container">
     <h1 class="fuente-caligrafia">Contacto</h1>
     <form [formGroup]="contacto" (ngSubmit)="enviarMensaje()">
-        <div class="mb-3">
-            <label class="form-label">Correo Electrónico</label>
-            <input type="email" class="form-control" formControlName="email" placeholder="tucorreo@plataforma.com">
-        </div>
 
-        @for (err of errors; track $index) {
-            @if(contacto.get('email')?.hasError(err.type) && contacto.get('email')?.touched) {
-                <p class="text-danger">{{err.message}}</p>
-            }
-        }
-        <div class="mb-3">
-            <label class="form-label">Nombre</label>
-            <input type="text" class="form-control" formControlName="nombre" placeholder="Tú nombre">
-        </div>
-        @for (err of errors; track $index) {
-            @if(contacto.get('nombre')?.hasError(err.type) && contacto.get('nombre')?.touched) {
-                <p class="text-danger">{{err.message}}</p>
-            }
-        }
-        <div class="row mb-3">
-            <div class="col">
-                <label class="form-label">Primer Apellido</label>
-                <input type="text" class="form-control" placeholder="Tú apellido" formControlName="apellido1">
-                @if(contacto.get('apellido1')?.hasError('maxlength') && contacto.get('apellido1')?.touched) {
-                    <p class="text-danger">El campo debe tener 12 letras de longitud como máximo</p>
-                }
-            </div>
-            <div class="col">
-                <label class="form-label">Segundo Apellido</label>
-                <input type="text" class="form-control" placeholder="Tú apellido" formControlName="apellido2">
-                @if(contacto.get('apellido2')?.hasError('maxlength') && contacto.get('apellido2')?.touched) {
-                    <p class="text-danger">El campo debe tener 12 letras de longitud como máximo</p>
-                }
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Teléfono</label>
-            <input type="text" class="form-control" placeholder="Tú teléfono" formControlName="telefono">
-            @if(contacto.get('telefono')?.hasError('pattern') && contacto.get('telefono')?.touched) {
-                <p class="text-danger">Introduce un número de teléfono correcto con el siguiente formato: +34618123456</p>
-            }
-        </div>
         <div class="mb-3">
             <label class="form-label">Mensaje</label>
             <textarea class="form-control" rows="3" formControlName="mensaje"></textarea>
@@ -52,6 +11,13 @@
                 <p class="text-danger">{{err.message}}</p>
             }
         }
+        <label class="form-label">Receta</label>
+        <select class="form-select" formControlName="recetaDirigida">
+            @for (receta of recetas; track $index) {
+                <option [value]="receta.id">{{receta.id}}:{{receta.nombre}}</option>
+            }
+        </select>
+        <br>
         <div class="d-grid gap-2">
             <input class="btn btn-secondary" type="submit">
         </div>

@@ -22,4 +22,8 @@ export class LocalStorageService {
     localStorage.clear();
   }
 
+  eliminar(clave: string):void {
+    localStorage.removeItem(clave);
+  }
+
 }

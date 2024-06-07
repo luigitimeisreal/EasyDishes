@@ -1,7 +1,20 @@
 <div class="container">
     <h1 class="fuente-caligrafia">EasyDishes</h1>
     <h4>Recetas del día</h4>
-    <!-- TODO: Rellenar con tarjetas -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      @for (receta of recetas; track $index) {
+      <div class="col">
+          <div class="card">
+              <img [src]="receta.imagen" class="card-img-top" alt="..." class="img-fluid">
+              <div class="card-body">
+                  <h5 class="card-title">{{ receta.nombre }}</h5>
+                  <a class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/receta', receta.id]">Ver</a>
+              </div>
+          </div>
+      </div>
+      }
+  </div>
+  <br>
     <h4>Información</h4>
     <p class="texto-info">EasyDishes es una aplicación web que permite a los usuarios crear, 
         compartir y utilizar recetas de cocina. Funciona de manera similar a un blog, con 

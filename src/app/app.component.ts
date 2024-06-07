@@ -31,7 +31,8 @@ export class AppComponent implements OnInit {
   }
 
   cerrarSesion() {
-    this.localStorageService.limpiar();
+    this.localStorageService.eliminar("dni");
+    this.localStorageService.eliminar("sesionIniciada");
   }
 
 }

@@ -60,4 +60,8 @@ export class RequestService {
     return this.httpClient.post(`${this.url}/eliminarFavorito.php`, datos);
   }
 
+  obtenerRecetasDiarias() {
+    return this.httpClient.get(`${this.url}/obtenerRecetasDia.php`);
+  }
+
 }

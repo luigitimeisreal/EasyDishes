@@ -31,11 +31,13 @@ export class RecetaComponent implements OnInit {
   urlX = `https://twitter.com/intent/tweet?url=${window.location.href}&text=Mira+esta+receta`
   urlLinkedin = `https://www.linkedin.com/shareArticle?url=${window.location.href}&title=Receta&summary=Mira+esta+receta`
   rutaImagen = "";
+  dniUsuario: string | null = "";
 
   ngOnInit(): void {
     console.log(this.receta);
     console.log("ID RECETA: ", this.ruta.snapshot.paramMap.get('id'));
     this.obtenerReceta(this.ruta.snapshot.paramMap.get('id'));
+    this.dniUsuario = this.localStorageService.obtenerItem("dni");
   }
 
   anyadirIngredientesALista() {

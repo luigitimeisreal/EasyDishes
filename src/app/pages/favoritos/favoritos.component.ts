@@ -22,13 +22,28 @@ export class FavoritosComponent implements OnInit {
 
   ngOnInit(): void {
     this.dniUsuario = this.localStorageService.obtenerItem("dni")!;
+    this.actualizarRecetas();
+  }
+
+  eliminarFavorito(idReceta: string) {
+    console.log("Eliminando", idReceta);
+    const datosFavorito = {
+      receta: idReceta,
+      usuario: this.localStorageService.obtenerItem("dni")
+    }
+    this.requestService.eliminarFavorito(datosFavorito)
+      .subscribe((data) => {
+        console.log("Recibiendo", data);
+        this.actualizarRecetas();
+      })
+  }
+
+  actualizarRecetas() {
     this.requestService.obtenerFavoritos(this.dniUsuario)
       .subscribe((data) => {
         console.log(data);
         this.recetas = data;
       })
   }
-
-
 
 }

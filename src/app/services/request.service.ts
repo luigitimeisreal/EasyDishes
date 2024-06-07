@@ -56,4 +56,8 @@ export class RequestService {
     return this.httpClient.get(`${this.url}/obtenerFavoritos.php?usuario=${dni}`);
   }
 
+  eliminarFavorito(datos: Object) {
+    return this.httpClient.post(`${this.url}/eliminarFavorito.php`, datos);
+  }
+
 }

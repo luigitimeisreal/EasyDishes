@@ -40,6 +40,8 @@ export class LoginComponent {
             this.localStorageService.anyadirItem("sesionIniciada", "true");
             this.authService.estaAutenticado = true;
             this.iniciadoSesion = true;
+            alert("Inicio de sesión correcto");
+            window.location.reload();
           } else {
             // alert("Sesión no iniciada");
             this.falladoSesion = true;

@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { Ingrediente } from '../../interfaces/ingrediente';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RequestService } from '../../services/request.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -13,14 +16,35 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   templateUrl: './lista.component.html',
   styleUrl: './lista.component.css'
 })
-export class ListaComponent {
+export class ListaComponent implements OnInit {
+
+  constructor(
+    private ruta: ActivatedRoute,
+    private requestService: RequestService,
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) {}
+
   ingredientes: Ingrediente[] = [];
+  idLista: string = "";
 
   formAnyadir = new FormGroup({
     ingrediente: new FormControl("", Validators.required),
     cantidad: new FormControl("", Validators.required),
     unidad: new FormControl("", Validators.required),
   })
+
+  ngOnInit(): void {
+    this.idLista = this.ruta.snapshot.paramMap.get('id')!;
+    this.requestService.obtenerFechaAutorLista(this.idLista)
+      .subscribe((data: any) => {
+        if(data.usuario !== this.localStorageService.obtenerItem("dni")) {
+          alert("No puedes acceder a esta lista, inicia sesión");
+          this.router.navigateByUrl("/login");
+        }
+        
+      })
+  }
 
   anyadirIngrediente() {
     if(this.formAnyadir.valid) {
@@ -69,8 +93,6 @@ export class ListaComponent {
     let definicionLista = {
       content: ticket
     }
-
-
     pdfMake.createPdf(definicionLista).open();
   }
 

@@ -12,10 +12,14 @@ import { RecetasEtapaComponent } from './pages/recetas-etapa/recetas-etapa.compo
 import { RecetasAutorComponent } from './pages/recetas-autor/recetas-autor.component';
 import { authGuard } from './guards/auth.guard';
 import { FavoritosComponent } from './pages/favoritos/favoritos.component';
+import { ListasComponent } from './pages/listas/listas.component';
 
 export const routes: Routes = [
     {"path": "", component: InicioComponent},
-    {"path": "lista", component: ListaComponent, canActivate:[authGuard]},
+    {"path": "listas", component: ListasComponent, canActivate:[authGuard]},
+    {"path": "listas", children: [
+        {"path": "lista/:id", component: ListaComponent, canActivate:[authGuard]}
+    ]},
     {"path": "recetas", component: FavRecetasComponent},
     {"path": "recetas", children: [
         {"path": "anyadir", component: AnyadirComponent, canActivate:[authGuard]},

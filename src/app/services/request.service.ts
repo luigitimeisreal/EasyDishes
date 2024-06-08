@@ -64,4 +64,8 @@ export class RequestService {
     return this.httpClient.get(`${this.url}/obtenerRecetasDia.php`);
   }
 
+  obtenerFechaAutorLista(idLista: string) {
+    return this.httpClient.get(`${this.url}/obtenerFechaAutorLista.php?id=${idLista}`);
+  }
+
 }

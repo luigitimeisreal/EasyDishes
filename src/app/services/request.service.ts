@@ -68,4 +68,28 @@ export class RequestService {
     return this.httpClient.get(`${this.url}/obtenerFechaAutorLista.php?id=${idLista}`);
   }
 
+  obtenerIngredientesLista(idLista: string) {
+    return this.httpClient.get(`${this.url}/obtenerIngredientesLista.php?id=${idLista}`);
+  }
+
+  eliminarIngredienteLista(datos: Object) {
+    return this.httpClient.post(`${this.url}/eliminarIngredienteLista.php`, datos);
+  }
+
+  eliminarTodosIngredientes(idLista: string) {
+    return this.httpClient.post(`${this.url}/eliminarTodosIngredientesLista.php`, idLista);
+  }
+
+  anyadirIngredienteLista(datos: Object) {
+    return this.httpClient.post(`${this.url}/anyadirIngredienteLista.php`, datos);
+  }
+
+  obtenerListasIdFechas(dniUsuario: string) {
+    return this.httpClient.get(`${this.url}/obtenerListasIdFechas.php?usuario=${dniUsuario}`);
+  }
+
+  anyadirLista(datos: Object) {
+    return this.httpClient.post(`${this.url}/anyadirLista.php`, datos);
+  }
+
 }

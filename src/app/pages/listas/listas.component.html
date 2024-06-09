@@ -1,1 +1,14 @@
-<p>listas works!</p>
+<div class="container">
+    <h1 class="fuente-caligrafia">Tús listas de la compra</h1>
+    <a type="button" class="btn btn-secondary" (click)="anyadirLista()">Añadir</a>
+    <br>
+    @if (listas.length === 0) {
+        <p class="text-warning"><i>No tienes ninguna lista</i></p>
+        <br>
+    }
+    <div class="list-group">
+        @for (lista of listas; track $index) {
+            <a [routerLink]="['/listas/lista', lista.id]" class="list-group-item list-group-item-action">{{lista.id}} : {{lista.fecha}}</a>
+        }
+      </div>
+</div>

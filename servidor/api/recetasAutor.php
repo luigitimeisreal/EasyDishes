@@ -1,0 +1,45 @@
+<?
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+    header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+    $method = $_SERVER['REQUEST_METHOD'];
+    if($method == "OPTIONS") {
+        die();
+    }
+
+    // Uso de la clase mysqli
+
+    $dbhost="localhost";
+    $dbuser="root";
+    $dbpass="1234";
+
+    // Creacion de instancia y paso de parametros al constructor
+    $c1 = new mysqli($dbhost,$dbuser,$dbpass) or die ('Error de conexion a mysql: ' . $c1->error.'<br>');
+
+    // Usar la base de datos
+	$c1->query("USE easydishes");
+
+    // SELECT id, imagen, nombre FROM recetas WHERE etapa='Desayuno';
+    $query_recetas_autor = $c1->query("SELECT id, imagen, nombre FROM recetas WHERE autor='" . $_GET["autor"] . "';");
+    $recetas = [];
+    while($resultado_receta = $query_recetas_autor->fetch_array(MYSQLI_ASSOC)) {
+
+        $imagen = $resultado_receta["imagen"];
+        $nombre = $resultado_receta["nombre"];
+        $id = $resultado_receta["id"];
+    
+        $receta = [
+            "id"=> $id,
+            "nombre"=> $nombre,
+            "imagen"=> $imagen
+        ];
+
+        $recetas[] = $receta;
+    }
+
+    echo json_encode($recetas);
+
+
+?>

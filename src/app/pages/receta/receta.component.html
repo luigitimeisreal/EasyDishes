@@ -17,11 +17,14 @@
               @for (ingrediente of receta.ingredientes; track $index) {
                 <p class="card-text">{{$index + 1}}: {{ingrediente.nombre}} x{{ingrediente.cantidad}} {{ingrediente.unidad}}</p>
               }
-              <button 
+              @if (hayListas && dniUsuario) {
+                <button 
                 type="button" 
                 class="btn btn-secondary"
-                (click)="anyadirIngredientesALista()"
+                data-bs-toggle="modal" 
+                data-bs-target="#exampleModal"
                 >Añadir a lista</button>
+              }
             </div>
           </div>
         </div>
@@ -58,5 +61,30 @@
     </button>
   }
   <br>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form [formGroup]="anyadirForm" (ngSubmit)="anyadirIngredientesALista()">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Selecciona lista</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <select class="form-select" formControlName="lista">
+                @for (lista of listas; track $index) {
+                  <option [value]="lista.id">{{lista.id}}: {{lista.fecha}}</option>
+                }
+              </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            <input type="submit" class="btn btn-secondary" value="Aceptar">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 
 </div>

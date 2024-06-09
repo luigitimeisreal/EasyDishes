@@ -38,11 +38,19 @@ export class ListaComponent implements OnInit {
     this.idLista = this.ruta.snapshot.paramMap.get('id')!;
     this.requestService.obtenerFechaAutorLista(this.idLista)
       .subscribe((data: any) => {
+        if(!data) {
+          alert("Esta lista no existe");
+          this.router.navigateByUrl("/listas");
+        }
         if(data.usuario !== this.localStorageService.obtenerItem("dni")) {
           alert("No puedes acceder a esta lista, inicia sesión");
           this.router.navigateByUrl("/login");
         }
-        
+        this.requestService.obtenerIngredientesLista(this.idLista)
+          .subscribe((data2: any) => {
+            console.log("Obteniendo ingredientes", data2);
+            this.ingredientes = data2;
+          })
       })
   }
 
@@ -58,7 +66,30 @@ export class ListaComponent implements OnInit {
         }
       });
       if(existe) {
-        this.ingredientes[posicion].cantidad += parseFloat(this.formAnyadir.value.cantidad!);
+        this.ingredientes[posicion].cantidad = Number(this.ingredientes[posicion].cantidad) + parseFloat(this.formAnyadir.value.cantidad!);
+        // Eliminar ingrediente de il
+        const datosEliminar = {
+          idIngrediente: this.ingredientes[posicion].id,
+          idLista: this.idLista
+        }
+
+        this.requestService.eliminarIngredienteLista(datosEliminar)
+          .subscribe((data) => {
+            console.log(data);
+            // Añadir nuevo ingrediente
+            const datosAnyadir = {
+              "nombre": this.ingredientes[posicion].nombre,
+              "cantidad": this.ingredientes[posicion].cantidad,
+              "unidad": this.ingredientes[posicion].unidad,
+              "idLista": this.idLista
+            }
+            this.requestService.anyadirIngredienteLista(datosAnyadir)
+              .subscribe((data2) => {
+                console.log("Recibiendo", data2);
+              })
+
+          })
+        
       } else {
         const nuevoIngrediente: Ingrediente = {
           nombre: this.formAnyadir.value.ingrediente!,
@@ -66,6 +97,17 @@ export class ListaComponent implements OnInit {
           unidad: this.formAnyadir.value.unidad!
         }
         this.ingredientes.push(nuevoIngrediente);
+        // Añadir ingrediente y campo en il
+        const datosAnyadir = {
+          "nombre": nuevoIngrediente.nombre,
+          "cantidad": nuevoIngrediente.cantidad,
+          "unidad": nuevoIngrediente.unidad,
+          "idLista": this.idLista
+        }
+        this.requestService.anyadirIngredienteLista(datosAnyadir)
+          .subscribe((data2) => {
+            console.log("Recibiendo", data2);
+          })
       }
     } else {
       console.log("Error en el formulario");
@@ -76,11 +118,27 @@ export class ListaComponent implements OnInit {
     this.ingredientes = this.ingredientes.filter(ingredientePotencial => {
       return ingredientePotencial.nombre !== ingrediente.nombre
     })
+
+    const datosEliminar = {
+      idIngrediente: ingrediente.id,
+      idLista: this.idLista
+    }
+
+    this.requestService.eliminarIngredienteLista(datosEliminar)
+      .subscribe((data) => {
+        console.log("Entra");
+        console.log(data);
+      })
+
   }
 
   eliminarTodosIngredientes() {
     this.ingredientes = [];
     // Eliminar tabla con ingredientes
+    this.requestService.eliminarTodosIngredientes(this.idLista)
+      .subscribe((data) => {
+        console.log("Recibiendo", data);
+      })
   }
 
   generarPDF() {

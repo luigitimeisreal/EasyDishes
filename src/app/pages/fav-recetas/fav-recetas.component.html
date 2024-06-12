@@ -1,33 +1,33 @@
 <div class="container">
     <h1 class="fuente-caligrafia">Recetas</h1>
-    <a type="button" routerLink="anyadir" class="btn btn-secondary">Añadir Receta</a>
+    <a type="button" routerLink="anyadir" class="btn btn-secondary" title="Página añadir receta">Añadir Receta</a>
     <br>
     <h5>Ver por etapa</h5>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
             <div class="card">
-                <img src="https://www.comedera.com/wp-content/uploads/2022/12/Desayono-americano-shutterstock_2120331371.jpg" class="card-img-top" alt="...">
+                <img src="https://www.comedera.com/wp-content/uploads/2022/12/Desayono-americano-shutterstock_2120331371.jpg" class="card-img-top" alt="Desayuno">
                 <div class="card-body">
                     <h5 class="card-title">Desayuno</h5>
-                    <a class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/etapa/', 'Desayuno']">Ver</a>
+                    <a class="btn btn-secondary largo" title="Recetas de desayuno" type="button" [routerLink]="['/recetas/etapa/', 'Desayuno']">Ver</a>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card">
-                <img src="https://cdn.hellofresh.com/es/cms/SEO/recipes/tiras_de_pollo_con_salsa_teriyaki.jpeg" class="card-img-top" alt="...">
+                <img src="https://cdn.hellofresh.com/es/cms/SEO/recipes/tiras_de_pollo_con_salsa_teriyaki.jpeg" class="card-img-top" alt="Comida">
                 <div class="card-body">
                     <h5 class="card-title">Comida</h5>
-                    <a class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/etapa/', 'Comida']">Ver</a>
+                    <a class="btn btn-secondary largo" title="Recetas de comida" type="button" [routerLink]="['/recetas/etapa/', 'Comida']">Ver</a>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card">
-                <img src="https://amp.protocolo.org/extfiles/i-99-cG.16432.1.jpg" class="card-img-top" alt="...">
+                <img src="https://amp.protocolo.org/extfiles/i-99-cG.16432.1.jpg" class="card-img-top" alt="Cena">
                 <div class="card-body">
                     <h5 class="card-title">Cena</h5>
-                    <a class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/etapa/', 'Cena']">Ver</a>
+                    <a class="btn btn-secondary largo" title="Recetas de cena" type="button" [routerLink]="['/recetas/etapa/', 'Cena']">Ver</a>
                 </div>
             </div>
         </div>
@@ -39,10 +39,10 @@
         <div class="col">
             <div class="card">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP69VhNwEwfPkMoskVDDjMblTUciNTLiQTRQ&s"
-                    class="card-img-top" alt="...">
+                    class="card-img-top" alt="Cocinero">
                 <div class="card-body">
                     <h5 class="card-title">{{autor.nombre}}: {{ autor.dni }}</h5>
-                    <a class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/autor/', autor.dni]">Ver</a>
+                    <a title="Recetas por autor" class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/autor/', autor.dni]">Ver</a>
                 </div>
             </div>
         </div>

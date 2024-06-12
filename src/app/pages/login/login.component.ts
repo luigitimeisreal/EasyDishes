@@ -41,7 +41,7 @@ export class LoginComponent {
             this.authService.estaAutenticado = true;
             this.iniciadoSesion = true;
             alert("Inicio de sesión correcto");
-            window.location.reload();
+            window.location.href = 'https://easydishes.es';
           } else {
             // alert("Sesión no iniciada");
             this.falladoSesion = true;

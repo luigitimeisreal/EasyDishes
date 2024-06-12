@@ -4,10 +4,10 @@
         @for (receta of recetas; track $index) {
         <div class="col">
             <div class="card">
-                <img [src]="receta.imagen" class="card-img-top" alt="..." class="img-fluid">
+                <img [src]="receta.imagen" class="card-img-top" [alt]="receta.nombre" class="img-fluid">
                 <div class="card-body">
                     <h5 class="card-title">{{ receta.nombre }}</h5>
-                    <a class="btn btn-secondary largo" type="button" [routerLink]="['/recetas/receta', receta.id]">Ver</a>
+                    <a class="btn btn-secondary largo" title="Ver receta" type="button" [routerLink]="['/recetas/receta', receta.id]">Ver</a>
                     <button type="button" class="btn btn-danger btn-separacion" (click)="eliminarFavorito(receta.id)">
                         Eliminar de favoritos
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">

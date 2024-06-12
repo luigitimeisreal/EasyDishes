@@ -7,9 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class RequestService {
 
-  url: string = "http://localhost/api"
+  // url: string = "http://localhost/api"
+  url: string = "http://easydishes.es/api"
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { 
+    console.log(this.url);    
+  }
 
   conseguirReceta(idReceta: string | null): any {
     return this.httpClient.get(`${this.url}/receta.php?id=${idReceta}`);
